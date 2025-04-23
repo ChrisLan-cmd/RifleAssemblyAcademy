@@ -4,6 +4,13 @@
 html, body {
     height: 100%;
     margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   /* 2. Full-screen, fixed behind-the-scenes background */
@@ -31,89 +38,63 @@ html, body {
   .content {
     position: relative;
     z-index: 1;
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    text-align: center;
   }
   
 /* —— typewriter styling —— */
 .typewriter-container {
-    font-family: monospace;
-    font-size: 3rem;
-    color: lightgray;
-    max-width: 600px;
-    width: 80%;  /* Ensures it doesn't stretch too wide */
-    margin: 0 auto;  /* Auto margins for horizontal centering */
-    text-align: left;  /* Keep text left-aligned (for typing effect) */
-    position: relative;
-    /* New positioning for vertical centering */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
+    font-size: 24px;
+    line-height: 1.5;
+    color: #333;
 }
 
 .typewriter-center {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
-    pointer-events: none;
-    z-index: 1;
-}
-
-#typed-text {
-    display: inline;
+    align-items: center;
+    min-height: 200px;
 }
 
 .cursor {
-    display: inline;
-    animation: blink 0.7s step-end infinite;
+    display: inline-block;
+    width: 2px;
+    height: 24px;
+    background-color: #333;
+    margin-left: 2px;
+    animation: blink 1s infinite;
 }
 
 @keyframes blink {
+    0% { opacity: 1; }
     50% { opacity: 0; }
+    100% { opacity: 1; }
 }
   
   /* —— tweak sidebar gradient & behavior —— */
   .next-sidebar {
     position: fixed;
+    right: 20px;
     top: 50%;
-    right: 0;
-    /* only 15% hidden offscreen, so a bigger sliver peeks out */
-    transform: translateX(85%) translateY(-50%);
-    z-index: 2;
-    width: 60px;
-    height: 150px;
-    background: linear-gradient(
-      to left,
-      rgba(0, 0, 0, 0.6), /* more opaque start */
-      rgba(0, 0, 0, 0.0)  /* smooth fade to transparent */
-    );
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ccc;           /* gray “Next” text */
+    transform: translateY(-50%);
+    background-color: #007bff;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: transform 0.3s ease, width 0.3s ease;
-    font-family: sans-serif;
-    font-size: 1.1rem;
-    letter-spacing: 0.05em;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.3);
-  }
-  
-  .next-sidebar:hover {
-    transform: translateX(0) translateY(-50%);
-    width: 100px;          /* expand wider on hover */
-  }
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.next-sidebar:hover {
+    background-color: #0056b3;
+}
   
 /* —— existing .next-sidebar here —— */
 
-/* —— new “Back” sidebar —— */
+/* —— new "Back" sidebar —— */
 .back-sidebar {
     position: fixed;
     top: 50%;
@@ -131,7 +112,7 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #ccc;           /* gray “Back” text */
+    color: #ccc;           /* gray "Back" text */
     cursor: pointer;
     transition: transform 0.3s ease, width 0.3s ease;
     font-family: sans-serif;
@@ -200,7 +181,7 @@ html, body {
     background-color: rgba(0, 0, 0, 0.7);
   }
   
-  /* —— info “screen” panel —— */
+  /* —— info "screen" panel —— */
   .info-wrapper {
     width: 600px;
     max-width: 90%;
