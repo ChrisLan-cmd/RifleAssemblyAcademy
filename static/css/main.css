@@ -6,49 +6,45 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background: transparent !important;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  /* 2. Full-screen, fixed behind-the-scenes background */
-  body::before {
+}
+
+/* 2. Full-screen, fixed behind-the-scenes background */
+body::before {
     content: "";
     position: fixed;
-    top:   0;
-    left:  0;
+    top: 0;
+    left: 0;
     width: 100%;
-    height:100%;
+    height: 100%;
     z-index: -1;
-  
-    /* YOUR IMAGE URL here (must point directly to an image file) */
     background: url("https://image.api.playstation.com/cdn/UP0002/CUSA11100_00/Z3EwVCd9pNd3fkmeiVYrKKExFOAcEqji.jpg?w=1024&thumb=true") 
                 no-repeat center/cover;
-  
-    /* blur + dim */
     filter: blur(8px) brightness(0.6);
-  
-    /* scale slightly to hide any blurred edges */
     transform: scale(1.05);
-  }
-  
-  /* 3. Ensure page content sits on top of the background */
-  .content {
+}
+
+/* 3. Ensure page content sits on top of the background */
+.content {
     position: relative;
     z-index: 1;
     width: 100%;
     max-width: 800px;
     padding: 20px;
     text-align: center;
-  }
-  
+    background: transparent !important;
+}
+
 /* —— typewriter styling —— */
 .typewriter-container {
     font-size: 24px;
     line-height: 1.5;
-    color: #333;
+    color: white;
+    background: transparent !important;
 }
 
 .typewriter-center {
