@@ -1,102 +1,79 @@
-// Typewriter effect
-document.addEventListener('DOMContentLoaded', function() {
-    const typedText = document.getElementById('typed-text');
-    if (typedText) {
-        const text = "Welcome to the Rifle Assembly Academy! Learn about to assemble the SAR21!";
-        const cursor = document.querySelector('.cursor');
-        let i = 0;
-
-        function typeWriter() {
-            if (i < text.length) {
-                typedText.textContent = text.substring(0, i + 1);
-                i++;
-                setTimeout(typeWriter, 50);
-            } else {
-                cursor.style.display = 'none';
-            }
-        }
-
-        typeWriter();
+document.addEventListener("DOMContentLoaded", () => {
+    const sentences = [
+      "Welcome to Rifle Assembly Academy...",
+      "Learn about and interact with the rifle of your choice...",
+      "Swipe to the right or press 'Next' to view available rifles..."
+    ];
+  
+    const typingSpeed   = 100;   // ms per char
+    const deletingSpeed = 50;
+    const pauseBetween  = 1500;  // ms before deleting
+    const typedEl       = document.getElementById("typed-text");
+  
+    // Grab both sidebars (may be null on pages without them)
+    const nextSidebar = document.getElementById("next-sidebar");
+    const backSidebar = document.getElementById("back-sidebar");
+  
+    function wait(ms) {
+      return new Promise(res => setTimeout(res, ms));
     }
-});
-
-// Quiz functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const optionButtons = document.querySelectorAll('.option-btn');
-    if (optionButtons.length > 0) {
-        const scoreDisplay = document.getElementById('score');
-        let currentScore = parseInt(scoreDisplay.textContent);
-        let answerSubmitted = false;
-
-        optionButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                if (answerSubmitted) return;  // Prevent multiple submissions
-                answerSubmitted = true;
-                
-                const selectedAnswer = this.dataset.answer;
-                const partId = this.closest('.options-container').dataset.partId;
-                const questionNum = parseInt(this.closest('.options-container').dataset.questionNum);
-                
-                // Disable all buttons to prevent multiple submissions
-                optionButtons.forEach(btn => btn.disabled = true);
-
-                fetch('/submit_answer', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        part_id: parseInt(partId),
-                        answer: selectedAnswer
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Update score
-                        currentScore = data.score;
-                        scoreDisplay.textContent = currentScore;
-                        
-                        // Update score color based on value
-                        if (currentScore < 0) {
-                            scoreDisplay.classList.add('text-danger');
-                        } else {
-                            scoreDisplay.classList.remove('text-danger');
-                        }
-
-                        // Add visual feedback
-                        this.classList.remove('btn-outline-light');
-                        if (data.correct) {
-                            // Show success feedback
-                            this.classList.add('btn-success');
-                            
-                            // Wait for animation, then proceed
-                            setTimeout(() => {
-                                if (data.all_completed) {
-                                    window.location.href = '/quiz_results';
-                                } else {
-                                    window.location.href = `/quiz/${questionNum + 1}`;
-                                }
-                            }, 1000);
-                        } else {
-                            // Show error feedback
-                            this.classList.add('btn-danger');
-                            
-                            // Re-enable buttons after showing feedback
-                            setTimeout(() => {
-                                optionButtons.forEach(btn => {
-                                    btn.disabled = false;
-                                    if (btn.classList.contains('btn-danger')) {
-                                        btn.classList.remove('btn-danger');
-                                        btn.classList.add('btn-outline-light');
-                                    }
-                                });
-                                answerSubmitted = false;  // Allow new submission
-                            }, 1000);
-                        }
-                    }
-                });
-            });
-        });
+  
+    async function typeSentence(sentence) {
+      for (let i = 0; i <= sentence.length; i++) {
+        typedEl.textContent = sentence.slice(0, i);
+        await wait(typingSpeed);
+      }
     }
-});
+  
+    async function deleteSentence(sentence) {
+      for (let i = sentence.length; i >= 0; i--) {
+        typedEl.textContent = sentence.slice(0, i);
+        await wait(deletingSpeed);
+      }
+    }
+  
+    async function runTypewriter() {
+      // type & delete first two, then type the last one and stop
+      for (let i = 0; i < 2; i++) {
+        await typeSentence(sentences[i]);
+        await wait(pauseBetween);
+        await deleteSentence(sentences[i]);
+        await wait(300);
+      }
+      await typeSentence(sentences[2]);
+    }
+  
+    runTypewriter();
+  
+    // —— Navigation handlers —— 
+    function goToNextPage() {
+      const nextUrl = nextSidebar?.dataset.next;
+      if (nextUrl) window.location.href = nextUrl;
+    }
+  
+    function goToPrevPage() {
+      const prevUrl = backSidebar?.dataset.prev;
+      if (prevUrl) window.location.href = prevUrl;
+      else window.history.back();
+    }
+  
+    // —— Click wires ——  
+    if (nextSidebar) nextSidebar.addEventListener("click", goToNextPage);
+    if (backSidebar) backSidebar.addEventListener("click", goToPrevPage);
+  
+    // —— Swipe logic (right = Next, left = Back) ——  
+    let touchStartX = 0, touchEndX = 0;
+    const swipeThreshold = 50; // px
+  
+    document.addEventListener("touchstart", e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+  
+    document.addEventListener("touchend", e => {
+      touchEndX = e.changedTouches[0].screenX;
+      const delta = touchEndX - touchStartX;
+      if (delta > swipeThreshold)        goToNextPage();
+      else if (delta < -swipeThreshold)  goToPrevPage();
+    }, { passive: true });
+  });
+  

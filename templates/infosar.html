@@ -29,12 +29,14 @@
     <span>Back</span>
   </div>
 
-  <!-- Next → (wherever you like; e.g. Home) -->
-  <div
-    id="next-sidebar"
-    class="next-sidebar"
-    data-next="/"
-  >
-    <span>Next</span>
-  </div>
+<!-- Next → Video -->
+<div
+  id="next-sidebar"
+  class="next-sidebar"
+  data-next="{{ url_for('videosar') }}"
+>
+  <span>Next</span>   <!-- feel free to write “Video” or another label -->
+</div>
+
+
 {% endblock %}
