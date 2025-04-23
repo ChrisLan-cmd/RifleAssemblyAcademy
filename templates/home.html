@@ -1,13 +1,21 @@
 {% extends "layout.html" %}
 
 {% block content %}
-  <div class="typewriter-center">
-    <div class="typewriter-container">
-      <span id="typed-text">Loading…</span><span class="cursor">|</span>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center text-white">
+            <h1 class="display-4 mb-4">SAR21 Assembly</h1>
+            <div class="typewriter-container mb-4">
+                <span id="typed-text">Loading…</span><span class="cursor"></span>
+            </div>
+            <br>
+            <br>
+            <a class="btn btn-outline-light btn-lg mb-3 hover-effect">Learn More</a> <!-- TODO: Learning part -->
+            <br>
+            <br>
+            <a href="{{ url_for('quiz', question_num=1) }}" class="btn btn-outline-light btn-lg hover-effect">Start Quiz</a>
+        </div>
     </div>
-  </div>
+</div>
 
-<div id="next-sidebar" class="next-sidebar" data-next="/viewsar">
-    <span>Next</span>
-  </div>
 {% endblock %}

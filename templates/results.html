@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="mb-0">Quiz Results</h3>
+                </div>
+                <div class="card-body text-center">
+                    <h4 class="mb-4">You have completed the quiz!</h4>
+                    <p class="display-4 mb-4 {% if score < 0 %}text-danger{% endif %}">Final Score: {{ score }}</p>
+                    <p class="h5 mb-3">Accuracy: {{ "%.1f"|format(accuracy) }}%</p>
+                    
+                    <div class="mt-4">
+                        <a href="{{ url_for('home') }}" class="btn btn-outline-light me-2">Return to Home</a>
+                        <a href="{{ url_for('restart_quiz') }}" class="btn btn-outline-light">Try Again</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Answer History -->
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Answer History</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Part</th>
+                                    <th>Your Answer</th>
+                                    <th>Correct Answer</th>
+                                    <th>Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for answer in answers %}
+                                <tr>
+                                    <td>{{ answer.part_name }}</td>
+                                    <td {% if not answer.is_correct %}class="text-danger"{% endif %}>
+                                        {{ answer.selected_answer }}
+                                    </td>
+                                    <td>{{ answer.correct_answer }}</td>
+                                    <td>
+                                        {% if answer.is_correct %}
+                                        <span class="badge bg-success">Correct (+5)</span>
+                                        {% else %}
+                                        <span class="badge bg-danger">Incorrect (-3)</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
