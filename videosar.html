@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="info-container">
+    <div class="video-container">
+      <div class="video-wrapper">
+        <!-- the API will replace this div with the actual player -->
+        <div id="yt-player"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back ← Info page -->
+  <div
+    id="back-sidebar"
+    class="back-sidebar"
+    data-prev="{{ url_for('infosar') }}"
+  >
+    <span>Back</span>
+  </div>
+
+  <!-- Next → Quiz page -->
+  <div
+    id="next-sidebar"
+    class="next-sidebar"
+    data-next="{{ url_for('quiz') }}"
+  >
+    <span>Next</span>
+  </div>
+
+  <!-- YouTube IFrame API + looped clip loader -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    const START_TIME = 46;
+    const END_TIME   = 64;
+    let player;
+
+    function createPlayer() {
+      player = new YT.Player('yt-player', {
+        height: '720',
+        width:  '1280',
+        videoId: '0tEzvnaaqoA',
+        playerVars: {
+          autoplay: 1,
+          start:    START_TIME,
+          end:      END_TIME,
+          controls: 1,
+          rel:      0,
+          mute:     1    // keeps autoplay working
+        },
+        events: {
+          onReady:       e => e.target.playVideo(),
+          onStateChange: e => {
+            if (e.data === YT.PlayerState.ENDED) {
+              player.seekTo(START_TIME);
+              player.playVideo();
+            }
+          }
+        }
+      });
+    }
+
+    // Handle both cached-and-not-yet-loaded API cases
+    if (window.YT && YT.Player) {
+      createPlayer();
+    } else {
+      window.onYouTubeIframeAPIReady = createPlayer;
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="info-container">
+    <div class="info-wrapper">
+      <h2 style="margin-top:0; text-align:center; color:#fff;">
+        SAR 21 at a Glance
+      </h2>
+      <p>The SAR 21 (“Singapore Assault Rifle – 21st Century”) is Singapore’s bullpup assault rifle chambered for 5.56×45 mm NATO. Developed from 1995–1999 by MINDEF, the Singapore Army, and Chartered Industries of Singapore (now ST Engineering Land Systems), it replaced the M16S1 as the SAF’s standard service weapon in 1999.
+      </p>
+      <h3>Key Features</h3>
+      <ul>
+        <li><strong>Sealed Reliability:</strong> Gas system and polymer parts resist salt, sand, and humidity.</li>
+        <li><strong>Bullpup Ergonomics:</strong> Compact overall length without sacrificing barrel velocity; ambidextrous controls.</li>
+        <li><strong>Built-in Stability:</strong> Integrated bipod and folding foregrip for rapid, steady aiming.</li>
+        <li><strong>Optics-Ready:</strong> MIL-STD-1913 rail for scopes, lights, and other accessories.</li>
+      </ul>
+      <p>Beyond Singaporean service, the SAR 21 is exported globally via ST Kinetics and, in the U.S., through its subsidiary VT Systems.
+      </p>
+    </div>
+  </div>
+
+    <!-- Back ← Model view -->
+    <div
+    id="back-sidebar"
+    class="back-sidebar"
+    data-prev="/viewsar"
+  >
+    <span>Back</span>
+  </div>
+
+<!-- Next → Video -->
+<div
+  id="next-sidebar"
+  class="next-sidebar"
+  data-next="{{ url_for('videosar') }}"
+>
+  <span>Next</span>   <!-- feel free to write “Video” or another label -->
+</div>
+
+
+{% endblock %}

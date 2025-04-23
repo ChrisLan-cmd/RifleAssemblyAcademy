@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="info-container">
+    <div class="info-wrapper">
+
+      <!-- header with title + score -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h3 style="margin: 0;">Each part of SAR21 – Quiz</h3>
+        <div>
+          Score:
+          <span id="score" {% if score < 0 %}class="text-danger"{% endif %}>
+            {{ score }}
+          </span>
+        </div>
+      </div>
+
+      <!-- image panel -->
+      <div style="text-align:center; margin-bottom:1.5rem;">
+        {% set part_names = [
+          'Barrel_Group',
+          'Bolt_Group',
+          'Lower_Receiver_Group',
+          'Magazine',
+          'Upper_Receiver_Group'
+        ] %}
+        {% set key = part_names[current_part_id - 1] %}
+
+        <img
+          src="{{ url_for('static', filename='images/' ~ key ~ '.png') }}"
+          alt="{{ key }}"
+          style="max-height:300px; max-width:100%; border-radius:8px; box-shadow: 0 0 20px rgba(0,0,0,0.5);"
+        >
+      </div>
+
+      <!-- answer options -->
+      <div
+        class="options-container"
+        data-part-id="{{ current_part_id }}"
+        data-question-num="{{ question_num }}"
+      >
+        {% for option in options %}
+          <button
+            class="btn btn-outline-light btn-lg w-100 mb-2 option-btn"
+            data-answer="{{ option }}"
+          >
+            {{ option.replace('_', ' ') }}
+          </button>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+{% endblock %}
