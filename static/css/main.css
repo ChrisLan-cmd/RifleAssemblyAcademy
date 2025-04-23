@@ -1,0 +1,246 @@
+/* static/css/main.css */
+
+/* 1. Reset margins & make body fill viewport */
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  /* 2. Full-screen, fixed behind-the-scenes background */
+  body::before {
+    content: "";
+    position: fixed;
+    top:   0;
+    left:  0;
+    width: 100%;
+    height:100%;
+    z-index: -1;
+  
+    /* YOUR IMAGE URL here (must point directly to an image file) */
+    background: url("https://image.api.playstation.com/cdn/UP0002/CUSA11100_00/Z3EwVCd9pNd3fkmeiVYrKKExFOAcEqji.jpg?w=1024&thumb=true") 
+                no-repeat center/cover;
+  
+    /* blur + dim */
+    filter: blur(8px) brightness(0.6);
+  
+    /* scale slightly to hide any blurred edges */
+    transform: scale(1.05);
+  }
+  
+  /* 3. Ensure page content sits on top of the background */
+  .content {
+    position: relative;
+    z-index: 1;
+  }
+  
+/* —— typewriter styling —— */
+.typewriter-container {
+    font-family: monospace;
+    font-size: 3rem;
+    color: lightgray;
+    max-width: 600px;
+    width: 80%;  /* Ensures it doesn't stretch too wide */
+    margin: 0 auto;  /* Auto margins for horizontal centering */
+    text-align: left;  /* Keep text left-aligned (for typing effect) */
+    position: relative;
+    /* New positioning for vertical centering */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.typewriter-center {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 1;
+}
+
+#typed-text {
+    display: inline;
+}
+
+.cursor {
+    display: inline;
+    animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+  
+  /* —— tweak sidebar gradient & behavior —— */
+  .next-sidebar {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    /* only 15% hidden offscreen, so a bigger sliver peeks out */
+    transform: translateX(85%) translateY(-50%);
+    z-index: 2;
+    width: 60px;
+    height: 150px;
+    background: linear-gradient(
+      to left,
+      rgba(0, 0, 0, 0.6), /* more opaque start */
+      rgba(0, 0, 0, 0.0)  /* smooth fade to transparent */
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;           /* gray “Next” text */
+    cursor: pointer;
+    transition: transform 0.3s ease, width 0.3s ease;
+    font-family: sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .next-sidebar:hover {
+    transform: translateX(0) translateY(-50%);
+    width: 100px;          /* expand wider on hover */
+  }
+  
+/* —— existing .next-sidebar here —— */
+
+/* —— new “Back” sidebar —— */
+.back-sidebar {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    /* only 15% hidden offscreen, so a bigger sliver peeks out */
+    transform: translateX(-85%) translateY(-50%);
+    z-index: 2;
+    width: 60px;
+    height: 150px;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.6), /* opaque start */
+      rgba(0, 0, 0, 0)    /* fade out */
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;           /* gray “Back” text */
+    cursor: pointer;
+    transition: transform 0.3s ease, width 0.3s ease;
+    font-family: sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .back-sidebar:hover {
+    transform: translateX(0) translateY(-50%);
+    width: 100px;          /* expand wider on hover */
+  }
+
+  /* —— 3D Model Viewer Styling —— */
+.model-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.7); /* Optional: dark semi-transparent background */
+  }
+  
+  .sketchfab-embed-wrapper {
+    width: 80%;
+    max-width: 1200px;
+    height: 80vh;
+    position: relative;
+  }
+  
+  .sketchfab-embed-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  .sketchfab-attribution {
+    text-align: center;
+    font-size: 13px;
+    color: #aaa;
+    margin-top: 10px;
+  }
+  
+  .sketchfab-attribution a {
+    color: #1CAAD9;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .sketchfab-attribution a:hover {
+    text-decoration: underline;
+  }
+
+/* —— info page full-screen dark backdrop —— */
+.info-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  /* —— info “screen” panel —— */
+  .info-wrapper {
+    width: 600px;
+    max-width: 90%;
+    max-height: 80vh;
+    background-color: #111;               /* deep dark screen */
+    border-radius: 16px;                  /* rounded corners */
+    box-shadow:
+      0 0 40px rgba(0, 0, 0, 0.9),        /* outer glow/shadow */
+      inset 0 0 20px rgba(255, 255, 255, 0.05); /* subtle inner glow */
+    padding: 2rem;                        /* text padding */
+    overflow-y: auto;                     /* scroll if needed */
+    
+    font-family: monospace;
+    color: #eee;
+    line-height: 1.5;
+    
+    white-space: pre-wrap;                /* wrap lines */
+    word-break: break-word;
+  }
+  
+  /* —— thin gray scrollbar for .info-wrapper —— */
+.info-wrapper {
+    /* for Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #888 rgba(0, 0, 0, 0.2);
+  }
+  
+  /* WebKit browsers */
+  .info-wrapper::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .info-wrapper::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+  
+  .info-wrapper::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+  }
+  
