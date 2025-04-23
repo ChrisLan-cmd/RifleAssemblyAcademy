@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SAR21 Guide</title>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/main.css') }}"
+  >
+</head>
+<body>
+  <div class="content">
+    {% block content %}{% endblock %}
+  </div>
+  <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
