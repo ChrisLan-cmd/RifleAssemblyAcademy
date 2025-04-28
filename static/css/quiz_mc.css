@@ -77,6 +77,55 @@
     width: 120px;
   }
 
+/* Question progress bar */
+.question-progress {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+.question-indicator {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background: transparent;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+.question-indicator:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+.question-indicator.answered {
+    background: #28a745;
+    border-color: #28a745;
+  }
+
+.question-indicator.answered.correct {
+    background: #28a745;
+    border-color: #28a745;
+  }
+
+.question-indicator.answered.incorrect {
+    background: #dc3545;
+    border-color: #dc3545;
+  }
+
+.question-indicator.current {
+    background: #007bff;
+    border-color: #007bff;
+  }
+
+.question-indicator:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
 /* make sure the score can scale */
 #score {
     display: inline-block;

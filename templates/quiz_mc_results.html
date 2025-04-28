@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block title %}MCQ Results – Rifle Assembly Academy{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/results.css') }}">
+{% endblock %}
+
+{% block placeholder %}{% endblock %}
+
+{% block content %}
+<div class="results-container">
+  <aside class="report-sidebar">
+    <h2>Summary</h2>
+    <ul id="summary-list"></ul>
+  </aside>
+  <main class="report-main">
+    <div class="results-header">
+      <h2>Multiple Choice Results</h2>
+      <div id="action-buttons" class="action-buttons">
+        <!-- Buttons will be added here by JavaScript -->
+      </div>
+    </div>
+    <div id="mcq-results" class="mcq-results"></div>
+  </main>
+</div>
+{% endblock %}
+
+{% block sidebar_back %}
+  <a class="sidebar-back" href="{{ url_for('quiz') }}">Back</a>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/quiz_mc_results.js') }}"></script>
+{% endblock %} 

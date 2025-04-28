@@ -6,9 +6,9 @@
 
 {% block content %}
   <div class="quiz-split">
-    <!-- MCQ side (unchanged) -->
+    <!-- MCQ side -->
     <div class="split-left split-left-wrapper">
-      <a href="{{ url_for('quiz_mc') }}" class="quiz-split-option">
+      <a href="{{ url_for('quiz_mc') }}" class="quiz-split-option" id="mcq-link">
         <div class="quiz-option">
           Multiple Choice Questions
           <div class="meter">
@@ -18,12 +18,15 @@
       </a>
     </div>
 
-    <!-- Drag-and-Drop side -->
-    <a href="{{ url_for('quiz_dd') }}" class="split-right quiz-split-option">
+    <!-- Assembly Challenge side -->
+    <a href="{{ url_for('quiz_dd') }}" class="split-right quiz-split-option" id="assembly-link">
       <div class="quiz-option">
-        Drag-and-Drop Challenge
+        Assembly Challenge
         <div class="meter">
           <span id="split-dd-progress-meter" style="width:0%"></span>
+        </div>
+        <div class="locked-message" style="display: none;">
+          Complete multiple choice questions with 3+ correct answers to unlock
         </div>
       </div>
     </a>
@@ -40,12 +43,43 @@
 {% block scripts %}
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // MCQ meter
+  // MCQ meter and retake button
   const mcq = JSON.parse(localStorage.getItem('quizMCState') || 'null');
+  const assemblyLink = document.getElementById('assembly-link');
+  const lockedMessage = document.querySelector('.locked-message');
+  const mcqLink = document.getElementById('mcq-link');
+
   if (mcq && Array.isArray(mcq.answered)) {
     const done = mcq.answered.filter(a => a!==null).length;
-    const pct  = (done/mcq.answered.length)*100;
+    const pct = (done/mcq.answered.length)*100;
     document.getElementById('split-progress-meter').style.width = pct + '%';
+
+    // Check if Assembly Challenge should be unlocked
+    const correctAnswers = mcq.answered.filter(a => a && a.correct).length;
+    if (correctAnswers >= 4) {
+      assemblyLink.classList.remove('locked');
+      lockedMessage.style.display = 'none';
+      assemblyLink.style.pointerEvents = 'auto';
+    } else {
+      assemblyLink.classList.add('locked');
+      lockedMessage.style.display = 'block';
+      assemblyLink.style.pointerEvents = 'none';
+    }
+
+    // Add warning for completed quiz
+    if (done === mcq.answered.length) {
+      mcqLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const ok = window.confirm(
+          'You have already completed this quiz. Re-entering will reset your progress. Do you want to continue?'
+        );
+        if (ok) {
+          // Reset the quiz state
+          localStorage.removeItem('quizMCState');
+          window.location.href = '/quiz/multiple';
+        }
+      });
+    }
   }
 
   // DnD meter (only on submit)

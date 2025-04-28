@@ -41,6 +41,10 @@ def results():
 def quiz_mc():
     return render_template('quiz_mc.html')
 
+@app.route('/quiz/multiple/results')
+def quiz_mc_results():
+    return render_template('quiz_mc_results.html')
+
 @app.route('/quiz/dragdrop')
 def quiz_dd():
     return render_template('quiz_dd.html')

@@ -49,6 +49,10 @@
     background: rgba(231,76,60,0.2);
     color: #e74c3c;
   }
+  .report-sidebar li.unanswered {
+    background: rgba(136, 136, 136, 0.2);
+    color: #888;
+  }
   
   /* Main pane with detailed entries */
   .report-main {
@@ -75,6 +79,9 @@
   }
   .result-entry .status.incorrect {
     color: #e74c3c;
+  }
+  .result-entry .status.unanswered {
+    color: #888;
   }
   
 /* Dark-mode, thinner scrollbar for the results pane */
@@ -122,4 +129,25 @@
 .result-entry,
 .result-entry div {
   font-family: monospace;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.results-header h2 {
+  margin: 0;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.action-buttons .btn {
+  font-size: 1.1rem;
+  padding: 0.5rem 1.5rem;
 }

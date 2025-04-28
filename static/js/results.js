@@ -19,24 +19,25 @@ document.addEventListener('DOMContentLoaded', () => {
   
     if (mcqState && Array.isArray(mcqState.answered)) {
       mcqState.answered.forEach((ans, i) => {
+        const isAnswered = ans !== null;
         const isCorrect = ans && ans.correct;
         const entry = document.createElement('div');
         entry.className = 'result-entry';
         entry.id = `mcq-${i}`;
         entry.innerHTML = `
           <div><strong>Q${i+1}:</strong> ${questions[i].prompt}</div>
-          <div>Your answer: ${ans ? ans.chosen : '—'}</div>
+          <div>Your answer: ${isAnswered ? ans.chosen : '—'}</div>
           <div>Correct answer: ${questions[i].correct}</div>
-          <div class="status ${isCorrect ? 'correct' : 'incorrect'}">
-            ${isCorrect ? 'Correct' : 'Incorrect'}
+          <div class="status ${isAnswered ? (isCorrect ? 'correct' : 'incorrect') : 'unanswered'}">
+            ${isAnswered ? (isCorrect ? 'Correct' : 'Incorrect') : 'N/A'}
           </div>
         `;
         mcqResultsDiv.appendChild(entry);
   
         // sidebar item
         const li = document.createElement('li');
-        li.textContent = `MCQ Q${i+1} – ${isCorrect ? '✔' : '✘'}`;
-        li.className = isCorrect ? 'correct' : 'incorrect';
+        li.textContent = `MCQ Q${i+1} – ${isAnswered ? (isCorrect ? '✔' : '✘') : '—'}`;
+        li.className = isAnswered ? (isCorrect ? 'correct' : 'incorrect') : 'unanswered';
         li.addEventListener('click', () => {
           const entryRect = entry.getBoundingClientRect();
           const containerRect = reportMain.getBoundingClientRect();
@@ -54,41 +55,48 @@ document.addEventListener('DOMContentLoaded', () => {
       summaryList.appendChild(li);
     }
   
-    // --- Drag & Drop Results ---
+    // --- Assembly Challenge Results ---
     const ddResultsDiv = document.getElementById('dd-results');
     const ddAssign = JSON.parse(localStorage.getItem('quizDDAssignments') || '{}');
     const ddCorrectZones = JSON.parse(localStorage.getItem('quizDDCorrectZones') || '[]');
     const parts = ['barrel', 'upper', 'bolt', 'lower', 'magazine'];
   
-    parts.forEach(part => {
-      const zoneId       = `zone-${part}`;
-      const placedZoneId = ddAssign[`drag-${part}`];
-      const isCorrect    = ddCorrectZones.includes(zoneId);
-      const entry = document.createElement('div');
-      entry.className = 'result-entry';
-      entry.id = `dd-${part}`;
-      entry.innerHTML = `
-        <div><strong>${part.charAt(0).toUpperCase() + part.slice(1)}:</strong>
-           placed in ${placedZoneId || 'none'}
-        </div>
-        <div>Expected zone: ${zoneId}</div>
-        <div class="status ${isCorrect ? 'correct' : 'incorrect'}">
-          ${isCorrect ? 'Correct' : 'Incorrect'}
-        </div>
-      `;
-      ddResultsDiv.appendChild(entry);
+    if (Object.keys(ddAssign).length > 0) {
+      parts.forEach(part => {
+        const zoneId = ddAssign[`part-${part}`];
+        const isCorrect = ddCorrectZones.includes(zoneId);
+        const entry = document.createElement('div');
+        entry.className = 'result-entry';
+        entry.id = `dd-${part}`;
+        entry.innerHTML = `
+          <div><strong>${part.charAt(0).toUpperCase() + part.slice(1)}:</strong></div>
+          <div>Your placement: ${zoneId ? zoneId.replace('zone-', '') : '—'}</div>
+          <div>Correct placement: ${part}</div>
+          <div class="status ${isCorrect ? 'correct' : 'incorrect'}">
+            ${isCorrect ? 'Correct' : 'Incorrect'}
+          </div>
+        `;
+        ddResultsDiv.appendChild(entry);
   
-      // sidebar item
-      const li = document.createElement('li');
-      li.textContent = `DnD ${part} – ${isCorrect ? '✔' : '✘'}`;
-      li.className = isCorrect ? 'correct' : 'incorrect';
-      li.addEventListener('click', () => {
-        const entryRect = entry.getBoundingClientRect();
-        const containerRect = reportMain.getBoundingClientRect();
-        const offset = reportMain.scrollTop + (entryRect.top - containerRect.top);
-        reportMain.scrollTo({ top: offset, behavior: 'smooth' });
+        // sidebar item
+        const li = document.createElement('li');
+        li.textContent = `Assembly ${part} – ${isCorrect ? '✔' : '✘'}`;
+        li.className = isCorrect ? 'correct' : 'incorrect';
+        li.addEventListener('click', () => {
+          const entryRect = entry.getBoundingClientRect();
+          const containerRect = reportMain.getBoundingClientRect();
+          const offset = reportMain.scrollTop + (entryRect.top - containerRect.top);
+          reportMain.scrollTo({ top: offset, behavior: 'smooth' });
+        });
+        summaryList.appendChild(li);
       });
+    } else {
+      const msg = document.createElement('div');
+      msg.textContent = 'No Assembly Challenge attempts found.';
+      ddResultsDiv.appendChild(msg);
+      const li = document.createElement('li');
+      li.textContent = 'Assembly: no attempt';
       summaryList.appendChild(li);
-    });
+    }
   });
   

@@ -18,8 +18,6 @@ pip install -r requirements.txt
 python app.py
 ```
 
-4. Open your browser and navigate to `http://localhost:5000`
-
 ## Database
 
 The application uses SQLite to store user progress. The database file (`quiz.db`) will be created automatically when you first run the application.
