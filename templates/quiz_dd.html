@@ -1,53 +1,48 @@
 {% extends "layout.html" %}
-{% block title %}Drag-and-Drop – Rifle Assembly Academy{% endblock %}
+{% block title %}Assembly Challenge – Rifle Assembly Academy{% endblock %}
+
 {% block head %}
-  <link rel="stylesheet"
-        href="{{ url_for('static', filename='css/quiz_dd.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz_dd.css') }}">
 {% endblock %}
 
+{% block placeholder %}{% endblock %}
+
 {% block content %}
-  <div class="dd-container">
-    <div id="dd-score" class="dd-score">Score: 0/5</div>
-
-    <!-- Drop zones arranged roughly like an SAR21 layout -->
-    <div class="drop-zones">
-      <div class="drop-zone" id="zone-barrel"   data-zone="Barrel Group" aria-label="Barrel drop zone"></div>
-
-      <div class="drop-zone" id="zone-upper"    data-zone="Upper Receiver Group" aria-label="Upper Receiver drop zone"></div>
-
-      <div class="drop-zone" id="zone-bolt"     data-zone="Bolt Group" aria-label="Bolt Group drop zone"></div>
-
-      <div class="drop-zone" id="zone-lower"    data-zone="Lower Receiver Group" aria-label="Lower Receiver drop zone"></div>
-
-      <div class="drop-zone" id="zone-magazine" data-zone="Magazine" aria-label="Magazine drop zone"></div>
+  <div class="assembly-container">
+    <!-- Parts at the top -->
+    <div class="parts-container">
+      <div class="part" draggable="true" id="part-barrel">
+        <img src="{{ url_for('static', filename='images/Barrel_Group.png') }}" alt="Barrel Group">
+      </div>
+      <div class="part" draggable="true" id="part-upper">
+        <img src="{{ url_for('static', filename='images/Upper_Receiver_Group.png') }}" alt="Upper Receiver Group">
+      </div>
+      <div class="part" draggable="true" id="part-bolt">
+        <img src="{{ url_for('static', filename='images/Bolt_Group.png') }}" alt="Bolt Group">
+      </div>
+      <div class="part" draggable="true" id="part-lower">
+        <img src="{{ url_for('static', filename='images/Lower_Receiver_Group.png') }}" alt="Lower Receiver Group">
+      </div>
+      <div class="part" draggable="true" id="part-magazine">
+        <img src="{{ url_for('static', filename='images/Magazine.png') }}" alt="Magazine">
+      </div>
     </div>
 
-    <!-- Scattered draggables -->
-    <div class="draggables">
-      <img src="{{ url_for('static', filename='images/Barrel_Group.png') }}"
-           id="drag-barrel" draggable="true" class="draggable" alt="Barrel">
-      <img src="{{ url_for('static', filename='images/Upper_Receiver_Group.png') }}"
-           id="drag-upper" draggable="true" class="draggable" alt="Upper Receiver">
-      <img src="{{ url_for('static', filename='images/Bolt_Group.png') }}"
-           id="drag-bolt" draggable="true" class="draggable" alt="Bolt Group">
-      <img src="{{ url_for('static', filename='images/Lower_Receiver_Group.png') }}"
-           id="drag-lower" draggable="true" class="draggable" alt="Lower Receiver">
-      <img src="{{ url_for('static', filename='images/Magazine.png') }}"
-           id="drag-magazine" draggable="true" class="draggable" alt="Magazine">
+    <!-- Assembly area -->
+    <div class="assembly-area">
+      <div class="assembly-box" id="assembly-box">
+        <div class="assembly-instruction">Drag and drop corresponding parts to the box to assemble the rifle</div>
+      </div>
     </div>
 
-    <!-- Centered Submit -->
-    <div class="dd-submit-container">
-      <button id="dd-submit" class="btn btn-secondary">Submit</button>
-      <button id="dd-restart" class="btn btn-warning" title="Restart Quiz">&#8635;</button>
+    <!-- Control buttons -->
+    <div class="control-buttons">
+      <button id="undo-btn" class="btn btn-secondary" disabled>Undo</button>
+      <button id="redo-btn" class="btn btn-secondary" disabled>Redo</button>
+      <button id="submit-btn" class="btn btn-primary">Submit</button>
     </div>
   </div>
 {% endblock %}
-
-{% block sidebar_back %}
-  <a class="sidebar-back" href="{{ url_for('quiz') }}">Back</a>
-{% endblock %}
-{% block sidebar_next %}{% endblock %}
 
 {% block scripts %}
   <script src="{{ url_for('static', filename='js/quiz_dd.js') }}"></script>

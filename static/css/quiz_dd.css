@@ -92,3 +92,152 @@
     border-color: #e74c3c !important;
   }
    
+.assembly-container {
+  width: 90vw;
+  max-width: 1200px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Parts container at the top */
+.parts-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  min-height: 120px; /* Maintain height when empty */
+}
+
+.part {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: move;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.part:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.part img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.part span {
+  color: #fff;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Assembly area */
+.assembly-area {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.assembly-area h2 {
+  color: #fff;
+  margin-bottom: 2rem;
+  font-family: 'Bebas Neue', Arial, sans-serif;
+  font-size: 1.8rem;
+}
+
+.assembly-box {
+  min-height: 400px;
+  border: 2px dashed rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  padding: 1rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.assembly-instruction {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.2rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* Control buttons */
+.control-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.control-buttons .btn {
+  min-width: 120px;
+  font-size: 1.1rem;
+}
+
+/* Dragging styles */
+.part.dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+/* Placed part styles */
+.placed-part {
+  position: absolute;
+  cursor: move;
+  transition: transform 0.2s ease;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.placed-part img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.placed-part span {
+  color: #fff;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.placed-part:hover {
+  transform: scale(1.05);
+}
+
+/* Button states */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#submit-btn {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+#submit-btn:not(:disabled) {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+   

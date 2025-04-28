@@ -82,6 +82,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Add warning for completed Assembly Challenge
+  if (localStorage.getItem('quizDDSubmitted') === 'true') {
+    assemblyLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      const ok = window.confirm(
+        'You have already completed this challenge. Re-entering will reset your progress. Do you want to continue?'
+      );
+      if (ok) {
+        // Clear the previous state
+        localStorage.removeItem('quizDDSubmitted');
+        localStorage.removeItem('quizDDAssignments');
+        window.location.href = '/quiz/dragdrop';
+      }
+    });
+  }
+
   // DnD meter (only on submit)
   if (localStorage.getItem('quizDDSubmitted') === 'true') {
     document.getElementById('split-dd-progress-meter').style.width = '100%';
