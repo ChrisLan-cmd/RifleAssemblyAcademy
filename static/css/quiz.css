@@ -1,0 +1,100 @@
+/* static/css/quiz.css */
+
+/* hide the inherited center-box */
+.center-box {
+    display: none !important;
+  }
+  
+  /* full-screen split layout with perspective for 3D hover */
+  .quiz-split {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    z-index: 0; /* above background but under navbar */
+  
+    perspective: 800px;
+    perspective-origin: center center;
+  }
+  
+  /* clickable halves */
+  .quiz-split-option {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-decoration: none;    /* remove the blue underline */
+
+    /* allow 3D child transforms */
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+  }
+  
+/* on hover, show the border */
+.quiz-split-option:hover {
+    transform: translateZ(60px);
+    background: rgba(0, 0, 0, 0.3);
+  }
+  
+  
+  /* light grey divider on left half */
+  .quiz-split-option.split-left {
+    border-right: 1px solid rgb(161, 161, 161);
+  }
+    
+
+/* make quiz-option a column so text sits above the bar */
+.quiz-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;    /* center both text and bar */
+  gap: 0.75rem;           /* space between title and meter */
+  background: transparent;
+  padding: 2rem 3rem;
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Bebas Neue', Arial, sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  pointer-events: none;
+  text-decoration: none;
+  width: 30vh;
+}
+
+/* tighten up the meter spacing inside quiz-option */
+.split-left-wrapper .meter {
+  margin-top: 0; /* we’re already spacing via gap */
+  width: 100%;   /* fill the .quiz-option width */
+}
+
+  
+/* === in quiz.css, after your existing .quiz-split and .quiz-split-option rules === */
+
+/* 1) Give the wrapper the same flex+3d behavior as .quiz-split-option */
+.split-left-wrapper {
+  flex: 1;                           /* fill half just like the old <a> did */
+  display: flex;
+  flex-direction: column;            /* stack link above meter */
+  justify-content: space-between;    /* push meter to bottom */
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease, background 0.5s ease;
+  border-right: 1px solid rgb(161,161,161);
+}
+
+/* 2) On hover, pop it out just like before */
+.split-left-wrapper:hover {
+  transform: translateZ(60px);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* 3) Make the inner <a> stretch to fill the wrapper (so you can hover anywhere) */
+.split-left-wrapper > a {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;  /* preserve your link styling */
+  /* inherit 3D context if you need sub-transforms on the link */
+  transform-style: inherit;
+}

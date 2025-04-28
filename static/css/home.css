@@ -1,0 +1,35 @@
+/* un-center horizontally for the typewriter page only */
+.center-box {
+  padding-left: 10%;
+}
+
+/* your overlay, which will now be relative to .center-box */
+.typewriter-overlay {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;               /* fill the 400px box */
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: flex-start;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* enforce monospace & styling */
+.typewriter-container {
+  pointer-events: auto;
+  font-family: monospace !important;
+  font-size: 3rem;
+  color: lightgray;
+  white-space: wrap;
+}
+
+
+/* blinking cursor */
+.cursor {
+  animation: blink 0.7s step-end infinite;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}

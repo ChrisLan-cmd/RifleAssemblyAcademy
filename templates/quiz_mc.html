@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block title %}Multiple Choice – Rifle Assembly Academy{% endblock %}
+
+{% block head %}
+  <script>
+    // Acts like a global constant inside quiz_mc.js
+    window.QUIZ_VERSION = '{{ quiz_version }}';
+  </script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz_mc.css') }}">
+{% endblock %}
+
+{% block placeholder %}{% endblock %}
+
+{% block content %}
+  <div class="mcq-container">
+    <!-- Score Display -->
+    <div class="score-display">Score: <span id="score">0</span>/5</div>
+
+    <!-- Question Image -->
+    <div class="question-image">
+      <img src="{{ url_for('static', filename='images/Barrel_Group.png') }}" alt="Question">
+    </div>
+
+    <!-- Prompt -->
+    <p class="mcq-prompt">Choose the correct answer.</p>
+
+    <!-- Answer Buttons -->
+    <div class="answers row">
+      <div class="col-12"><button class="btn btn-outline-light btn-block">Barrel Group</button></div>
+      <div class="col-12"><button class="btn btn-outline-light btn-block">Bolt Group</button></div>
+      <div class="col-12"><button class="btn btn-outline-light btn-block">Lower Receiver Group</button></div>
+      <div class="col-12"><button class="btn btn-outline-light btn-block">Magazine</button></div>
+      <div class="col-12"><button class="btn btn-outline-light btn-block">Upper Receiver Group</button></div>
+    </div>
+
+    <!-- Previous/Next Nav -->
+    <div class="nav-buttons">
+      <button id="prev-question" class="btn btn-sm btn-secondary">Previous</button>
+      <!-- Restart button -->
+      <button id="restart-quiz" title="Restart Quiz">
+        &#8635;
+      </button>
+      <button id="next-question" class="btn btn-sm btn-secondary">Next</button>
+    </div>
+
+    <!-- Progress Meter -->
+    <div class="meter">
+      <span id="progress-meter" style="width: 0%;"></span>
+    </div>
+  </div>   {# ← closing mcq-container #}
+
+{% endblock %}
+
+{% block sidebar_back %}
+  <a class="sidebar-back" href="{{ url_for('quiz') }}">Back</a>
+{% endblock %}
+
+{% block sidebar_next %}
+  <a class="sidebar-next" href="{{ url_for('quiz_dd') }}">Next</a>
+{% endblock %}
+
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/quiz_mc.js') }}"></script>
+{% endblock %}

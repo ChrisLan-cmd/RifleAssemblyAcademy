@@ -1,17 +1,103 @@
+<!-- Author: Konstantinos Anagnostopoulos -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>SAR21 Guide</title>
-  <link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='css/main.css') }}"
-  >
-</head>
+  <head>
+    <!-- 1) Bootstrap first -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+  
+    <!-- 2) Your global layout rules -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+
+    <!-- 2.1️⃣ Now include your utility styles (sidebar-next, etc.) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/util.css') }}">
+  
+    <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+    rel="stylesheet">  
+
+    <!-- 3) Page-specific overrides get injected here -->
+    {% block head %}{% endblock %}
+  
+    <!-- jQuery & Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  
+      
 <body>
-  <div class="content">
-    {% block content %}{% endblock %}
-  </div>
-  <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
-</body>
+    <div class="container-fluid fullscreen-bg">
+  
+      <!-- Navbar pinned at the top -->
+      <nav class="navbar">
+        <ul class="nav-tabs">
+          <li>
+            <a href="{{ url_for('home') }}"
+               class="{% if request.endpoint == 'home' %}active{% endif %}">
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('viewsar') }}"
+               class="{% if request.endpoint == 'viewsar' %}active{% endif %}">
+              3D Model
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('infosar') }}"
+               class="{% if request.endpoint == 'infosar' %}active{% endif %}">
+              Info
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('parts') }}"
+               class="{% if request.endpoint == 'parts' %}active{% endif %}">
+              Parts
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('videosar') }}"
+               class="{% if request.endpoint == 'videosar' %}active{% endif %}">
+              Video
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('quiz') }}"
+               class="{% if request.endpoint == 'quiz' %}active{% endif %}">
+              Quiz
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('results') }}" 
+              class="{% if request.endpoint == 'results' %}active{% endif %}">
+            Results
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+  
+      <!-- <-- now this is a block! -->
+      <div class="center-box">
+        {% block placeholder %}
+          <!-- default content if no page overrides it -->
+          Choral Box
+        {% endblock %}
+      </div>
+
+      {# opt-in “Back” sidebar #}
+      {% block sidebar_back %}{% endblock %}
+
+      <!-- your normal content block (below the box) -->
+      {% block content %}{% endblock %}
+
+      {# opt-in “Next” sidebar – pages override this if they need it #}
+      {% block sidebar_next %}{% endblock %}
+
+    </div>
+  
+    {% block scripts %}{% endblock %}
+  </body>
+  
 </html>

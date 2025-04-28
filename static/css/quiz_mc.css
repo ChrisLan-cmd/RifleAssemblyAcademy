@@ -1,0 +1,104 @@
+/* static/css/quiz_mc.css */
+
+/* hide default center-box */
+.center-box {
+    display: none !important;
+  }
+  
+  /* main MCQ container */
+  .mcq-container {
+    width: 70vw;
+    max-width: 800px;
+    margin: 2rem auto;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    padding: 1.5rem;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    color: #c9c9c9;
+    position: relative;
+  }
+  
+  /* score display */
+  .score-display {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: x-large;
+    color: #fff;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  }
+  
+  .question-image {
+    /* fixed dimensions */
+    width: 100%;         /* or e.g. 400px if you want a hard width */
+    height: 200px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    /* remove any flex rules */
+    display: block;
+    padding: 40px;
+  }
+  
+  .question-image img {
+    /* let the image scale down to fit both dimensions */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;      /* center via margin */
+    margin: 0 auto;
+  }
+  
+  
+  /* prompt text */
+  .mcq-prompt {
+    font-family: monospace;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  /* answer buttons */
+  .answers .btn {
+    width: 100%;
+    margin-bottom: 0.75rem;
+    text-align: left;
+  }
+  
+  /* nav buttons container */
+  .nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+  }
+  
+  /* small nav buttons */
+  .nav-buttons .btn {
+    width: 120px;
+  }
+
+/* make sure the score can scale */
+#score {
+    display: inline-block;
+  }
+  
+  /* pop for correct */
+  #score.pop {
+    animation: score-pop 0.6s ease-out both;
+  }
+  @keyframes score-pop {
+    0%   { transform: scale(1);   color: #fff; }
+    50%  { transform: scale(1.5); color: #0f0; }
+    100% { transform: scale(1);   color: #fff; }
+  }
+  
+  /* error flash for wrong */
+  #score.error {
+    animation: score-error 0.6s ease-out both;
+  }
+  @keyframes score-error {
+    0%   { color: #fff; }
+    50%  { color: #f00; }
+    100% { color: #fff; }
+  }
+  

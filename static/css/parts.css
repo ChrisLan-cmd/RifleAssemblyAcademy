@@ -1,0 +1,59 @@
+/* static/css/parts.css */
+
+/* remove inherited center-box */
+.center-box {
+    display: none !important;
+  }
+  
+  /* card styling */
+  .part-container {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    /* give a consistent min-height if you like */
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* image area */
+  .part-image-container {
+    height: 150px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.1);
+  }
+  .part-image-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+  }
+  
+  /* title */
+  .part-container h5 {
+    margin: 0.5rem 0;
+    font-family: 'Bebas Neue', Arial, sans-serif;
+    font-size: xx-large;
+    color: grey;
+  }
+  
+  /* always-show details */
+  .part-details {
+    padding: 0 1rem 1rem;
+    color: #ccc;
+    font-size: 0.9rem;
+    overflow: visible;
+    max-height: none;
+    transition: none;
+    font-family: monospace !important;
+    font-size: large;
+  }
+  
+  /* hide arrow entirely */
+  .arrow {
+    display: none !important;
+  }
+  

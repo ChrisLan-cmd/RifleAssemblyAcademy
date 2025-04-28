@@ -1,0 +1,106 @@
+/* static/css/infosar.css */
+
+/* 1) Resize the placeholder box for text content */
+.center-box {
+    width: 50vw !important;
+    height: 70vh !important; /* explicit height for more vertical space */
+    border-radius: 12px;
+    padding: 2rem;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.4); /* dark, semi-opaque back */
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 4;
+    /* subtle drop shadow behind the info container */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* 2) Container & wrapper centering */
+  .info-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .info-wrapper {
+    width: 100%;
+    max-width: 600px;
+    color: #ccc;
+  }
+  
+  /* 3) Title styling */
+  .info-title {
+    margin-top: 0;
+    text-align: center;
+    color: #fff;
+  }
+  
+  /* 4) Timeline */
+  .timeline {
+    position: relative;
+    padding: 0;
+    margin: 2rem 0;
+    list-style: none;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 60px;             /* moved line right to clear dates */
+    width: 2px;
+    background: #636262;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem; /* increased spacing between events */
+    padding-left: 80px;    /* more space between date and content */
+  }
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+  .timeline-date {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: bold;
+    color: #ddd;
+  }
+  .timeline-content {
+    margin: 2rem 0 0;      /* extra top margin for vertical breathing */
+  }
+  
+  /* 5) Features grid */
+  .features-title {
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .feature {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  .feature strong {
+    display: block;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* 6) Hide scrollbars but allow scrolling */
+  .center-box::-webkit-scrollbar {
+    width: 6px;
+  }
+  .center-box::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .center-box::-webkit-scrollbar-thumb {
+    background: rgba(200,200,200,0.3);
+    border-radius: 3px;
+  }
+  

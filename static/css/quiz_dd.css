@@ -1,0 +1,94 @@
+/* show the center-box on this page */
+.center-box {
+    display: none !important;
+  }
+  
+  .dd-container {
+    position: relative;   /* for absolute dd-score inside */
+    width: 80vw;
+    max-width: 800px;
+    margin: 2rem auto;
+    color: #fff;
+  }
+  
+  /* Score indicator top-right */
+  .dd-score {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(0,0,0,0.6);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: x-large;
+    pointer-events: none;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  }
+  
+  /* Relative container for five drop zones */
+  .drop-zones {
+    position: relative;
+    height: 320px;
+    margin-bottom: 2rem;
+  }
+  
+  /* Common drop-zone styling */
+  .drop-zone {
+    width: 120px;
+    height: 120px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+  }
+  
+  /* Green border when correct */
+  .drop-zone.correct {
+    border-color: rgb(43,194,83) !important;
+  }
+  
+  /* Position them roughly like an SAR21 */
+  #zone-barrel   { top: 0;    left: calc(50% - 60px); }
+  #zone-upper    { top: 80px; left: calc(50% - 60px); }
+  #zone-bolt     { top: 80px; left: calc(50% + 80px); }
+  #zone-lower    { top: 180px; left: calc(50% - 60px); }
+  #zone-magazine { top: 260px; left: calc(50% - 60px); }
+  
+  /* Draggables container */
+  .draggables {
+    position: relative;
+    height: 200px;
+    margin-bottom: 2rem;
+  }
+  
+  /* Common draggable styling – larger now */
+  .draggable {
+    width: 100px;
+    cursor: grab;
+    position: absolute;
+  }
+  
+  /* Scatter them around */
+  #drag-barrel   { top: 0;    left: 0;           }
+  #drag-upper    { top: 0;    right: 0;          }
+  #drag-bolt     { bottom: 0; left: 20%;        }
+  #drag-lower    { bottom: 0; right: 20%;       }
+  #drag-magazine { top: 50px; left: 45%;        }
+  
+  /* Submit button centered */
+  .dd-submit-container {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .dd-submit-container #dd-restart {
+    margin-left: 1rem;
+  }
+   
+ /* red border when wrong */
+.drop-zone.incorrect {
+    border-color: #e74c3c !important;
+  }
+   

@@ -1,59 +1,49 @@
-from flask import Flask, render_template, url_for   # url_for is handy in templates
+from flask import Flask, render_template, g
+import time
 
 app = Flask(__name__)
+# stamp once, when the server process spins up
+app.config['QUIZ_VERSION'] = str(int(time.time()))
+
+@app.context_processor
+def inject_quiz_version():
+    return {'quiz_version': app.config['QUIZ_VERSION']}
 
 @app.route("/")
 def home():
     return render_template("home.html")
 
-@app.route("/viewsar")
+@app.route('/viewsar')
 def viewsar():
-    return render_template("viewsar.html")
+    return render_template('viewsar.html')
 
-@app.route("/infosar")
+@app.route('/infosar')
 def infosar():
-    return render_template("infosar.html")
+    return render_template('infosar.html')
 
-# NEW ──────────────────────────────────────────────
-@app.route("/videosar")
+@app.route('/parts')
+def parts():
+    return render_template('parts.html')
+
+@app.route('/videosar')
 def videosar():
-    return render_template("videosar.html")
-# ──────────────────────────────────────────────────
+    return render_template('videosar.html')
 
-@app.route("/quiz")
+@app.route('/quiz')
 def quiz():
-    # 1) define the ordered list of part-image names
-    part_names = [
-        "Barrel_Group",
-        "Bolt_Group",
-        "Lower_Receiver_Group",
-        "Magazine",
-        "Upper_Receiver_Group"
-    ]
+    return render_template('quiz.html')
 
-    # 2) pick the first part as the “current” one (you can advance this index later)
-    initial_part_id = 1   # 1-based index
-    # map to 0-based list index
-    part_key = part_names[initial_part_id - 1]
+@app.route('/results')
+def results():
+    return render_template('results.html')
 
-    # 3) build the image URL from your static folder
-    image_url = url_for(
-        'static',
-        filename=f'images/{part_key}.jpg'
-    )
+@app.route('/quiz/multiple')
+def quiz_mc():
+    return render_template('quiz_mc.html')
 
-    # 4) all options shown in the quiz
-    options = part_names.copy()
+@app.route('/quiz/dragdrop')
+def quiz_dd():
+    return render_template('quiz_dd.html')
 
-    # 5) initial quiz context
-    return render_template(
-        "quiz.html",
-        image_url       = image_url,
-        options         = options,
-        current_part_id = initial_part_id,
-        question_num    = 1,
-        score           = 0
-    )
-
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True, port=8000)
