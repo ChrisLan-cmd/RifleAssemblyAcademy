@@ -151,3 +151,11 @@
   font-size: 1.1rem;
   padding: 0.5rem 1.5rem;
 }
+
+/* Remove the assembly preview styles since we're not using them anymore */
+.assembly-preview,
+.preview-part,
+.preview-part.correct,
+.preview-part.incorrect {
+  display: none;
+}

@@ -57,39 +57,66 @@ document.addEventListener('DOMContentLoaded', () => {
   
     // --- Assembly Challenge Results ---
     const ddResultsDiv = document.getElementById('dd-results');
-    const ddAssign = JSON.parse(localStorage.getItem('quizDDAssignments') || '{}');
-    const ddCorrectZones = JSON.parse(localStorage.getItem('quizDDCorrectZones') || '[]');
-    const parts = ['barrel', 'upper', 'bolt', 'lower', 'magazine'];
+    const ddAssignments = JSON.parse(localStorage.getItem('quizDDAssignments') || '{}');
+    const ddSubmitted = localStorage.getItem('quizDDSubmitted') === 'true';
+    
+    // Define full names for parts
+    const partNames = {
+      'barrel': 'Barrel Group',
+      'upper': 'Upper Receiver Group',
+      'bolt': 'Bolt Group',
+      'lower': 'Lower Receiver Group',
+      'magazine': 'Magazine'
+    };
+    const parts = Object.keys(partNames);
   
-    if (Object.keys(ddAssign).length > 0) {
+    if (ddSubmitted && Object.keys(ddAssignments).length > 0) {
       parts.forEach(part => {
-        const zoneId = ddAssign[`part-${part}`];
-        const isCorrect = ddCorrectZones.includes(zoneId);
+        const partId = `part-${part}`;
+        const assignment = ddAssignments[partId];
         const entry = document.createElement('div');
         entry.className = 'result-entry';
         entry.id = `dd-${part}`;
-        entry.innerHTML = `
-          <div><strong>${part.charAt(0).toUpperCase() + part.slice(1)}:</strong></div>
-          <div>Your placement: ${zoneId ? zoneId.replace('zone-', '') : '—'}</div>
-          <div>Correct placement: ${part}</div>
-          <div class="status ${isCorrect ? 'correct' : 'incorrect'}">
-            ${isCorrect ? 'Correct' : 'Incorrect'}
-          </div>
-        `;
+        
+        if (assignment) {
+          const { correct } = assignment;
+          entry.innerHTML = `
+            <div><strong>${partNames[part]}:</strong></div>
+            <div class="status ${correct ? 'correct' : 'incorrect'}">
+              ${correct ? 'Correctly placed' : 'Incorrectly placed'}
+            </div>
+          `;
+        } else {
+          entry.innerHTML = `
+            <div><strong>${partNames[part]}:</strong></div>
+            <div class="status incorrect">Not placed</div>
+          `;
+        }
+        
         ddResultsDiv.appendChild(entry);
-  
-        // sidebar item
-        const li = document.createElement('li');
-        li.textContent = `Assembly ${part} – ${isCorrect ? '✔' : '✘'}`;
-        li.className = isCorrect ? 'correct' : 'incorrect';
-        li.addEventListener('click', () => {
-          const entryRect = entry.getBoundingClientRect();
-          const containerRect = reportMain.getBoundingClientRect();
-          const offset = reportMain.scrollTop + (entryRect.top - containerRect.top);
-          reportMain.scrollTo({ top: offset, behavior: 'smooth' });
-        });
-        summaryList.appendChild(li);
       });
+  
+      // Add overall status
+      const allCorrect = Object.values(ddAssignments).every(a => a.correct);
+      const statusDiv = document.createElement('div');
+      statusDiv.className = `status ${allCorrect ? 'correct' : 'incorrect'}`;
+      statusDiv.style.textAlign = 'center';
+      statusDiv.style.marginTop = '1rem';
+      statusDiv.textContent = allCorrect ? 
+        'Congratulations! All parts are correctly assembled!' : 
+        'Some parts are not in the correct position. Try again!';
+      ddResultsDiv.appendChild(statusDiv);
+  
+      // Add sidebar item
+      const li = document.createElement('li');
+      li.textContent = `Assembly Challenge – ${allCorrect ? '✔' : '✘'}`;
+      li.className = allCorrect ? 'correct' : 'incorrect';
+      li.addEventListener('click', () => {
+        const containerRect = reportMain.getBoundingClientRect();
+        const offset = reportMain.scrollTop + (ddResultsDiv.offsetTop - containerRect.top);
+        reportMain.scrollTo({ top: offset, behavior: 'smooth' });
+      });
+      summaryList.appendChild(li);
     } else {
       const msg = document.createElement('div');
       msg.textContent = 'No Assembly Challenge attempts found.';
