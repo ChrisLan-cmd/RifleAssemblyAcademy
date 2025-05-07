@@ -1,19 +1,54 @@
 /* static/css/infosar.css */
 
-/* 1) Resize the placeholder box for text content */
+/* at the very top of infosar.css (so you get Manrope) */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@700&display=swap');
+
+/* 1) Resize + base layout (unchanged) */
 .center-box {
-    width: 50vw !important;
-    height: 70vh !important; /* explicit height for more vertical space */
-    border-radius: 12px;
-    padding: 2rem;
-    overflow-y: auto;
-    background: rgba(0, 0, 0, 0.4); /* dark, semi-opaque back */
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    z-index: 4;
-    /* subtle drop shadow behind the info container */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  }
+  /* sizing & layout (keep these) */
+  width: 50vw !important;
+  height: 70vh !important;
+  border-radius: 12px;
+  padding: 2rem;
+  overflow-y: auto;
+  z-index: 4;
+
+  /* DARKER grey theme */
+  background:
+    /* subtle spotlight in top-left, almost black */
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(20,20,20,0.98) 0%,
+      transparent 70%
+    ),
+    /* faint glow bottom-right */
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(40,40,40,0.85) 0%,
+      transparent 60%
+    ),
+    /* core fill: deep charcoal */
+    rgba(15,15,15,0.95);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+
+  color: #eee;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.6) transparent;
+}
+
+/* keep the scrollbar styling if you need it */
+.center-box::-webkit-scrollbar {
+  width: 6px;
+}
+.center-box::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 3px;
+}
+
   
   /* 2) Container & wrapper centering */
   .info-container {
@@ -31,10 +66,31 @@
   
   /* 3) Title styling */
   .info-title {
-    margin-top: 0;
+    /* pad in all directions */
+    padding: 1rem;
+    margin: 0 0 .5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
     text-align: center;
-    color: #fff;
+  
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: 'Manrope', Arial, sans-serif;
+  
+    /* stronger gradient: pure white ➔ light-mid grey ➔ darker grey */
+    background: linear-gradient(
+      to bottom,
+      #ffffff 0%,
+      #dddddd 50%,
+      #888888 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
   }
+  
   
   /* 4) Timeline */
   .timeline {

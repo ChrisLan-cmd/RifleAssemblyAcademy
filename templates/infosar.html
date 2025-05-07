@@ -59,4 +59,4 @@
   <a id="next-sidebar" class="sidebar-next" href="{{ url_for('parts') }}">Next</a>
 {% endblock %}
 
-{% block scripts %}{% endblock %}
+{% block scripts %}  {{ super() }}{% endblock %}

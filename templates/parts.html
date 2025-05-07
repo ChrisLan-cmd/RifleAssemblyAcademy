@@ -8,30 +8,59 @@
 
 {% block content %}
   <div class="container py-4">
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 gy-5">
-      {% for part in [
-          ('Barrel Group', 'Barrel_Group.png', 'The barrel group includes the barrel, gas block, and flash hider. It directs high-pressure gases to cycle the action.'),
-          ('Bolt Group', 'Bolt_Group.png', 'Contains the bolt, firing pin, and extractor; responsible for chambering, firing, and extracting rounds.'),
-          ('Lower Receiver Group', 'Lower_Receiver_Group.png', 'Houses the trigger mechanism, magazine well, and safety selector; connects grip and stock.'),
-          ('Magazine', 'Magazine.png', 'Detachable 30-round box magazine; polymer construction for lightweight, reliable feeding.'),
-          ('Upper Receiver Group', 'Upper_Receiver_Group.png', 'Includes charging handle, optics rail, and ejection port; interfaces barrel to receiver.')
-        ] %}
-      <div class="col">
-        <div class="part-container h-100 d-flex flex-column">
-          <div class="part-image-container">
-            <img src="{{ url_for('static', filename='images/' ~ part[1]) }}"
-                 class="img-fluid" alt="{{ part[0] }}">
-          </div>
-          <h5 class="mt-3 text-center">{{ part[0] }}</h5>
-          <div class="part-details flex-grow-1">
-            <p class="text-light small">{{ part[2] }}</p>
+    {% set parts_list = [
+      ('Barrel Group',          'Barrel_Group.png',          'The barrel group includes the barrel, gas block, and flash hider. It directs high-pressure gases to cycle the action.'),
+      ('Bolt Group',            'Bolt_Group.png',            'Contains the bolt, firing pin, and extractor; responsible for chambering, firing, and extracting rounds.'),
+      ('Lower Receiver Group',  'Lower_Receiver_Group.png',  'Houses the trigger mechanism, magazine well, and safety selector; connects grip and stock.'),
+      ('Magazine',              'Magazine.png',              'Detachable 30-round box magazine; polymer construction for lightweight, reliable feeding.'),
+      ('Upper Receiver Group',  'Upper_Receiver_Group.png',  'Includes charging handle, optics rail, and ejection port; interfaces barrel to receiver.')
+    ] %}
+
+    {# First row: same as before #}
+    <div class="row g-4 gy-5">
+      {% for part in parts_list[:3] %}
+        <div class="col-12 col-md-4">
+          <div class="part-container h-100 d-flex flex-column">
+            <div class="part-image-container">
+              <img src="{{ url_for('static', filename='images/' ~ part[1]) }}"
+                   class="img-fluid" alt="{{ part[0] }}">
+            </div>
+            <h5 class="mt-3 text-center">{{ part[0] }}</h5>
+            <div class="part-details flex-grow-1">
+              <p class="text-light small">{{ part[2] }}</p>
+            </div>
           </div>
         </div>
-      </div>
       {% endfor %}
+    </div>
+
+    {# Second row: 2 empty col-md-2 + two col-md-4 containers + 2 empty col-md-2 #}
+    <div class="row g-4 gy-5 mt-4">
+      <!-- left spacer -->
+      <div class="d-none d-md-block col-md-2"></div>
+
+      <!-- your two part containers -->
+      {% for part in parts_list[3:] %}
+        <div class="col-12 col-md-4">
+          <div class="part-container h-100 d-flex flex-column">
+            <div class="part-image-container">
+              <img src="{{ url_for('static', filename='images/' ~ part[1]) }}"
+                   class="img-fluid" alt="{{ part[0] }}">
+            </div>
+            <h5 class="mt-3 text-center">{{ part[0] }}</h5>
+            <div class="part-details flex-grow-1">
+              <p class="text-light small">{{ part[2] }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+
+      <!-- right spacer -->
+      <div class="d-none d-md-block col-md-2"></div>
     </div>
   </div>
 {% endblock %}
+
 
 {% block sidebar_back %}
   <a class="sidebar-back" href="{{ url_for('infosar') }}">Back</a>
@@ -41,4 +70,6 @@
   <a class="sidebar-next" href="{{ url_for('videosar') }}">Next</a>
 {% endblock %}
 
-{% block scripts %}{% endblock %}
+{% block scripts %}
+  {{ super() }}
+{% endblock %}
