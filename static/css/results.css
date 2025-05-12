@@ -114,21 +114,18 @@
   /* Sidebar title and items in Bebas Neue */
 .report-sidebar h2,
 .report-sidebar li {
-  font-family: 'Bebas Neue', Arial, sans-serif;
   color: rgb(155, 155, 155);
   font-size: large;
 }
 
 /* Main section headings in Bebas Neue */
 .report-main h2 {
-  font-family: 'Bebas Neue', Arial, sans-serif;
 }
 
 /* All the detailed lines (prompts, answers, zones) in monospace */
 .results-container,
 .result-entry,
 .result-entry div {
-  font-family: monospace;
 }
 
 .results-header {

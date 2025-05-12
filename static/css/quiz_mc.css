@@ -26,7 +26,6 @@
     right: 1rem;
     font-size: x-large;
     color: #fff;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   }
   
   .question-image {
@@ -52,7 +51,6 @@
   
   /* prompt text */
   .mcq-prompt {
-    font-family: monospace;
     font-size: 1.5rem;
     margin-bottom: 1rem;
     text-align: center;

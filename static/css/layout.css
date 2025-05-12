@@ -1,3 +1,76 @@
+/* Global font settings */
+:root {
+  --primary-font: 'Montserrat', Arial, sans-serif;
+  --body-font: 'Roboto', Arial, sans-serif;
+}
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap');
+
+/* Apply fonts to all text elements */
+* {
+  font-family: var(--body-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Elements that should use the primary font */
+h1, h2, h3, h4, h5, h6,
+.navbar .nav-tabs a,
+.sidebar-next,
+.sidebar-back,
+.quiz-option,
+.score-display,
+.dd-score,
+.assembly-area h2,
+.assembly-instruction,
+.control-btn,
+.rotate-handle::before,
+.hint-btn,
+.hint-popup-close,
+.btn,
+.part-container h5,
+.typewriter-container,
+/* Navigation elements */
+.navbar,
+.navbar .nav-tabs,
+.navbar .nav-tabs a,
+/* Results page elements */
+.report-sidebar h2,
+.report-sidebar li,
+.report-main h2,
+.results-header h2,
+.action-buttons .btn,
+/* All buttons */
+.btn,
+button,
+[type="button"],
+[type="submit"] {
+  font-family: var(--primary-font);
+  font-weight: 500;
+}
+
+/* Special case for part descriptions and other detailed text */
+.part-details,
+.typewriter-container,
+.assembly-instruction::after,
+/* Results page content */
+.results-container,
+.result-entry,
+.result-entry div,
+.report-main,
+.report-sidebar {
+  font-family: var(--body-font);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* Special case for monospace elements */
+.mcq-prompt,
+code, pre {
+  font-family: var(--body-font);
+}
+
 /* full-screen bg wrapper */
 .fullscreen-bg {
   position: relative;      /* needed for absolute children */
@@ -110,9 +183,14 @@ color: white;
 font-weight: bold;
 }
 
+/* Remove the old font-family declaration */
 .navbar .nav-tabs a,
 .sidebar-next,
 .sidebar-back {
+<<<<<<< HEAD
 font-family: 'Bebas Neue', Arial, sans-serif;
 font-size: larger;
+=======
+  font-size: larger;
+>>>>>>> dcddb5e (make font consistent)
 }

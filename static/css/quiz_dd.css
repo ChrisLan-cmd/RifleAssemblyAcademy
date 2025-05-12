@@ -199,7 +199,6 @@
     border-radius: 4px;
     font-size: x-large;
     pointer-events: none;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   }
   
   /* Relative container for five drop zones */
@@ -332,7 +331,6 @@
 .assembly-area h2 {
   color: #fff;
   margin-bottom: 2rem;
-  font-family: 'Bebas Neue', Arial, sans-serif;
   font-size: 1.8rem;
 }
 

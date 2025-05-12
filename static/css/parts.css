@@ -35,7 +35,6 @@
   /* title */
   .part-container h5 {
     margin: 0.5rem 0;
-    font-family: 'Bebas Neue', Arial, sans-serif;
     font-size: xx-large;
     color: grey;
   }
@@ -48,7 +47,6 @@
     overflow: visible;
     max-height: none;
     transition: none;
-    font-family: monospace !important;
     font-size: large;
   }
   
